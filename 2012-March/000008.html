@@ -1,0 +1,156 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Fortrangis-users] Compiling gdal libfortranGIS
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/fortrangis-users/2012-March/index.html" >
+   <LINK REL="made" HREF="mailto:fortrangis-users%40lists.berlios.de?Subject=Re%3A%20%5BFortrangis-users%5D%20Compiling%20gdal%20libfortranGIS&In-Reply-To=%3C4F6C2E20.5030506%40gmail.com%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000007.html">
+   <LINK REL="Next"  HREF="000009.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Fortrangis-users] Compiling gdal libfortranGIS</H1>
+    <B>Davide Cesari</B> 
+    <A HREF="mailto:fortrangis-users%40lists.berlios.de?Subject=Re%3A%20%5BFortrangis-users%5D%20Compiling%20gdal%20libfortranGIS&In-Reply-To=%3C4F6C2E20.5030506%40gmail.com%3E"
+       TITLE="[Fortrangis-users] Compiling gdal libfortranGIS">dcesari69 at gmail.com
+       </A><BR>
+    <I>Fri Mar 23 09:02:40 CET 2012</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000007.html">[Fortrangis-users] Compiling gdal libfortranGIS
+</A></li>
+        <LI>Next message: <A HREF="000009.html">[Fortrangis-users] Compiling gdal libfortranGIS
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#8">[ date ]</a>
+              <a href="thread.html#8">[ thread ]</a>
+              <a href="subject.html#8">[ subject ]</a>
+              <a href="author.html#8">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>On 23/03/2012 06:56, Lukas Lehnert wrote:
+&gt;<i> Hi Marcos,
+</I>&gt;<i>
+</I>&gt;<i> some weeks ago, I had a similar problem with the same Ubuntu version and
+</I>&gt;<i> libfortrangis. My problem was that the compiled program was not able to
+</I>&gt;<i> find the library anymore and the linker could not find lgdal. It worked,
+</I>&gt;<i> when I compiled libfortrangis giving the option --disable-shared to the
+</I>&gt;<i> ./configure command.
+</I>&gt;<i>
+</I>&gt;<i> In order to fix the linker problem, the compilation command was then
+</I>&gt;<i>
+</I>&gt;<i> gfortran -I/usr/local/include/ `gdal-config --cflags` gdal_test.F90
+</I>&gt;<i> `gdal-config --libs` -lfortrangis -lfortranc
+</I>&gt;<i>
+</I>&gt;<i> I hope this helps you to fix your problem
+</I>&gt;<i>
+</I>&gt;<i> Best wishes
+</I>&gt;<i>
+</I>&gt;<i> Lukas
+</I>&gt;<i>
+</I>
+Yes, I confirm, the default installation path for libraries in the build 
+system, /usr/local/lib, is not usually in the default search path for 
+shared libraries in Linux, so either you compile only static libraries, 
+configuring with --disable-shared, as Lukas said, or you set at runtime:
+
+export LD_LIBRARY_PATH=/usr/local/lib
+or
+LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/lib
+if it is already set
+
+in order to dynamically link the shared libraries you installed. The 
+same holds if you installed on a non-standard location, such as your own 
+home directory.
+	Please inform about any progress,
+		best regards, Davide
+	
+
+&gt;<i> Am Donnerstag, 22. M&#228;rz 2012, 09:51:26 schrieb Marcos Freitas:
+</I>&gt;<i>
+</I>&gt;<i>  &gt; Hi,
+</I>&gt;<i>
+</I>&gt;<i>  &gt;
+</I>&gt;<i>
+</I>&gt;<i>  &gt; I've compiled libfortrangis 2.0 at Linux Ubuntu 11.10 and Mac Os X 10.6
+</I>&gt;<i>
+</I>&gt;<i>  &gt; (Snow Leopard) with sucess. My problem now is to compile the
+</I>&gt;<i> gdal_test.F90
+</I>&gt;<i>
+</I>&gt;<i>  &gt; code. I receive a message disclaiming for MOD links. I'm using
+</I>&gt;<i> gfortran and
+</I>&gt;<i>
+</I>&gt;<i>  &gt; tested the compiling with -I/usr/local/include and -L/usr/local/lib. I`ll
+</I>&gt;<i>
+</I>&gt;<i>  &gt; appreciate any comments, suggestions and examples for compiling
+</I>&gt;<i>
+</I>&gt;<i>  &gt; gdal_test.F90 using gfortran or other compiler.
+</I>&gt;<i>
+</I>&gt;<i>  &gt;
+</I>&gt;<i>
+</I>&gt;<i>  &gt; Thanks in advance.
+</I>&gt;<i>
+</I>&gt;<i>  &gt;
+</I>&gt;<i>
+</I>&gt;<i>  &gt; Marcos
+</I>&gt;<i>
+</I>&gt;<i>  &gt; _______________________________________________
+</I>&gt;<i>
+</I>&gt;<i>  &gt; Fortrangis-users mailing list
+</I>&gt;<i>
+</I>&gt;<i>  &gt; <A HREF="https://lists.berlios.de/mailman/listinfo/fortrangis-users">Fortrangis-users at lists.berlios.de</A>
+</I>&gt;<i>
+</I>&gt;<i>  &gt; <A HREF="https://lists.berlios.de/mailman/listinfo/fortrangis-users">https://lists.berlios.de/mailman/listinfo/fortrangis-users</A>
+</I>&gt;<i>
+</I>&gt;<i> --
+</I>&gt;<i>
+</I>&gt;<i> Lukas Lehnert
+</I>&gt;<i>
+</I>&gt;<i> Scientific assistant PhD student
+</I>&gt;<i>
+</I>&gt;<i> Laboratory for Climatology and Remote Sensing
+</I>&gt;<i>
+</I>&gt;<i> University of Marburg
+</I>&gt;<i>
+</I>&gt;<i> <A HREF="http://www.lcrs.de/">http://www.lcrs.de/</A>
+</I>&gt;<i>
+</I>&gt;<i> Phone: +49 6421-2824227
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i> _______________________________________________
+</I>&gt;<i> Fortrangis-users mailing list
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/fortrangis-users">Fortrangis-users at lists.berlios.de</A>
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/fortrangis-users">https://lists.berlios.de/mailman/listinfo/fortrangis-users</A>
+</I>
+</PRE>
+
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000007.html">[Fortrangis-users] Compiling gdal libfortranGIS
+</A></li>
+	<LI>Next message: <A HREF="000009.html">[Fortrangis-users] Compiling gdal libfortranGIS
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#8">[ date ]</a>
+              <a href="thread.html#8">[ thread ]</a>
+              <a href="subject.html#8">[ subject ]</a>
+              <a href="author.html#8">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/fortrangis-users">More information about the Fortrangis-users
+mailing list</a><br>
+</body></html>

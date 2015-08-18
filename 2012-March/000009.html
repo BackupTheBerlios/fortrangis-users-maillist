@@ -1,0 +1,166 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Fortrangis-users] Compiling gdal libfortranGIS
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/fortrangis-users/2012-March/index.html" >
+   <LINK REL="made" HREF="mailto:fortrangis-users%40lists.berlios.de?Subject=Re%3A%20%5BFortrangis-users%5D%20Compiling%20gdal%20libfortranGIS&In-Reply-To=%3CF4A6C098-A3D5-449F-BDAF-E03BC90D68B9%40gmail.com%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000008.html">
+   
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Fortrangis-users] Compiling gdal libfortranGIS</H1>
+    <B>Marcos Freitas</B> 
+    <A HREF="mailto:fortrangis-users%40lists.berlios.de?Subject=Re%3A%20%5BFortrangis-users%5D%20Compiling%20gdal%20libfortranGIS&In-Reply-To=%3CF4A6C098-A3D5-449F-BDAF-E03BC90D68B9%40gmail.com%3E"
+       TITLE="[Fortrangis-users] Compiling gdal libfortranGIS">marcoswfreitas at gmail.com
+       </A><BR>
+    <I>Fri Mar 23 13:00:13 CET 2012</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000008.html">[Fortrangis-users] Compiling gdal libfortranGIS
+</A></li>
+        
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#9">[ date ]</a>
+              <a href="thread.html#9">[ thread ]</a>
+              <a href="subject.html#9">[ subject ]</a>
+              <a href="author.html#9">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>
+Hi Lukas and Davide,
+
+It`s working now at Mac OS X due to Lukas gfortran compilation tip. Then I`ll try Davide`s solution at Ubuntu, which I think needs to be adapted in Mac OS X (Mac uses DYN_LIBRARY).
+
+Thanks very much.
+
+Best regards,
+
+Marcos
+
+Em 23/03/2012, &#224;s 05:02, Davide Cesari escreveu:
+
+&gt;<i> On 23/03/2012 06:56, Lukas Lehnert wrote:
+</I>&gt;&gt;<i> Hi Marcos,
+</I>&gt;&gt;<i> 
+</I>&gt;&gt;<i> some weeks ago, I had a similar problem with the same Ubuntu version and
+</I>&gt;&gt;<i> libfortrangis. My problem was that the compiled program was not able to
+</I>&gt;&gt;<i> find the library anymore and the linker could not find lgdal. It worked,
+</I>&gt;&gt;<i> when I compiled libfortrangis giving the option --disable-shared to the
+</I>&gt;&gt;<i> ./configure command.
+</I>&gt;&gt;<i> 
+</I>&gt;&gt;<i> In order to fix the linker problem, the compilation command was then
+</I>&gt;&gt;<i> 
+</I>&gt;&gt;<i> gfortran -I/usr/local/include/ `gdal-config --cflags` gdal_test.F90
+</I>&gt;&gt;<i> `gdal-config --libs` -lfortrangis -lfortranc
+</I>&gt;&gt;<i> 
+</I>&gt;&gt;<i> I hope this helps you to fix your problem
+</I>&gt;&gt;<i> 
+</I>&gt;&gt;<i> Best wishes
+</I>&gt;&gt;<i> 
+</I>&gt;&gt;<i> Lukas
+</I>&gt;&gt;<i> 
+</I>&gt;<i> 
+</I>&gt;<i> Yes, I confirm, the default installation path for libraries in the build system, /usr/local/lib, is not usually in the default search path for shared libraries in Linux, so either you compile only static libraries, configuring with --disable-shared, as Lukas said, or you set at runtime:
+</I>&gt;<i> 
+</I>&gt;<i> export LD_LIBRARY_PATH=/usr/local/lib
+</I>&gt;<i> or
+</I>&gt;<i> LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/lib
+</I>&gt;<i> if it is already set
+</I>&gt;<i> 
+</I>&gt;<i> in order to dynamically link the shared libraries you installed. The same holds if you installed on a non-standard location, such as your own home directory.
+</I>&gt;<i> 	Please inform about any progress,
+</I>&gt;<i> 		best regards, Davide
+</I>&gt;<i> 	
+</I>&gt;<i> 
+</I>&gt;&gt;<i> Am Donnerstag, 22. M&#228;rz 2012, 09:51:26 schrieb Marcos Freitas:
+</I>&gt;&gt;<i> 
+</I>&gt;&gt;<i> &gt; Hi,
+</I>&gt;&gt;<i> 
+</I>&gt;&gt;<i> &gt;
+</I>&gt;&gt;<i> 
+</I>&gt;&gt;<i> &gt; I've compiled libfortrangis 2.0 at Linux Ubuntu 11.10 and Mac Os X 10.6
+</I>&gt;&gt;<i> 
+</I>&gt;&gt;<i> &gt; (Snow Leopard) with sucess. My problem now is to compile the
+</I>&gt;&gt;<i> gdal_test.F90
+</I>&gt;&gt;<i> 
+</I>&gt;&gt;<i> &gt; code. I receive a message disclaiming for MOD links. I'm using
+</I>&gt;&gt;<i> gfortran and
+</I>&gt;&gt;<i> 
+</I>&gt;&gt;<i> &gt; tested the compiling with -I/usr/local/include and -L/usr/local/lib. I`ll
+</I>&gt;&gt;<i> 
+</I>&gt;&gt;<i> &gt; appreciate any comments, suggestions and examples for compiling
+</I>&gt;&gt;<i> 
+</I>&gt;&gt;<i> &gt; gdal_test.F90 using gfortran or other compiler.
+</I>&gt;&gt;<i> 
+</I>&gt;&gt;<i> &gt;
+</I>&gt;&gt;<i> 
+</I>&gt;&gt;<i> &gt; Thanks in advance.
+</I>&gt;&gt;<i> 
+</I>&gt;&gt;<i> &gt;
+</I>&gt;&gt;<i> 
+</I>&gt;&gt;<i> &gt; Marcos
+</I>&gt;&gt;<i> 
+</I>&gt;&gt;<i> &gt; _______________________________________________
+</I>&gt;&gt;<i> 
+</I>&gt;&gt;<i> &gt; Fortrangis-users mailing list
+</I>&gt;&gt;<i> 
+</I>&gt;&gt;<i> &gt; <A HREF="https://lists.berlios.de/mailman/listinfo/fortrangis-users">Fortrangis-users at lists.berlios.de</A>
+</I>&gt;&gt;<i> 
+</I>&gt;&gt;<i> &gt; <A HREF="https://lists.berlios.de/mailman/listinfo/fortrangis-users">https://lists.berlios.de/mailman/listinfo/fortrangis-users</A>
+</I>&gt;&gt;<i> 
+</I>&gt;&gt;<i> --
+</I>&gt;&gt;<i> 
+</I>&gt;&gt;<i> Lukas Lehnert
+</I>&gt;&gt;<i> 
+</I>&gt;&gt;<i> Scientific assistant PhD student
+</I>&gt;&gt;<i> 
+</I>&gt;&gt;<i> Laboratory for Climatology and Remote Sensing
+</I>&gt;&gt;<i> 
+</I>&gt;&gt;<i> University of Marburg
+</I>&gt;&gt;<i> 
+</I>&gt;&gt;<i> <A HREF="http://www.lcrs.de/">http://www.lcrs.de/</A>
+</I>&gt;&gt;<i> 
+</I>&gt;&gt;<i> Phone: +49 6421-2824227
+</I>&gt;&gt;<i> 
+</I>&gt;&gt;<i> 
+</I>&gt;&gt;<i> 
+</I>&gt;&gt;<i> _______________________________________________
+</I>&gt;&gt;<i> Fortrangis-users mailing list
+</I>&gt;&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/fortrangis-users">Fortrangis-users at lists.berlios.de</A>
+</I>&gt;&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/fortrangis-users">https://lists.berlios.de/mailman/listinfo/fortrangis-users</A>
+</I>&gt;<i> 
+</I>&gt;<i> _______________________________________________
+</I>&gt;<i> Fortrangis-users mailing list
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/fortrangis-users">Fortrangis-users at lists.berlios.de</A>
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/fortrangis-users">https://lists.berlios.de/mailman/listinfo/fortrangis-users</A>
+</I>
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000008.html">[Fortrangis-users] Compiling gdal libfortranGIS
+</A></li>
+	
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#9">[ date ]</a>
+              <a href="thread.html#9">[ thread ]</a>
+              <a href="subject.html#9">[ subject ]</a>
+              <a href="author.html#9">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/fortrangis-users">More information about the Fortrangis-users
+mailing list</a><br>
+</body></html>

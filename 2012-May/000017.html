@@ -1,0 +1,140 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Fortrangis-users] gdalrasterio
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/fortrangis-users/2012-May/index.html" >
+   <LINK REL="made" HREF="mailto:fortrangis-users%40lists.berlios.de?Subject=Re%3A%20%5BFortrangis-users%5D%20gdalrasterio&In-Reply-To=%3C4FC630BC.8070001%40gmail.com%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000016.html">
+   
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Fortrangis-users] gdalrasterio</H1>
+    <B>Davide Cesari</B> 
+    <A HREF="mailto:fortrangis-users%40lists.berlios.de?Subject=Re%3A%20%5BFortrangis-users%5D%20gdalrasterio&In-Reply-To=%3C4FC630BC.8070001%40gmail.com%3E"
+       TITLE="[Fortrangis-users] gdalrasterio">dcesari69 at gmail.com
+       </A><BR>
+    <I>Wed May 30 16:37:48 CEST 2012</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000016.html">[Fortrangis-users] gdalrasterio
+</A></li>
+        
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#17">[ date ]</a>
+              <a href="thread.html#17">[ thread ]</a>
+              <a href="subject.html#17">[ subject ]</a>
+              <a href="author.html#17">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>On 22/05/2012 11:47, Dommi wrote:
+&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i> Hello,
+</I>&gt;<i> I am trying to read in a large dataset row by row by using the gdalrasterio (hband, erwflag, ndsxoff, ndsyoff, ndsxsize, ndsysize, pbuffer, nbxsize, nbysize, ebdatatype, npixelspace, nlinespace) method.
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i> Using the simpler gdalrasterio_f worked fine but with the full gdalrasterio method I don`t quite know how to handle the image buffer in which the data is to be read.
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i> This is what I&#180;ve tried so far (registering drivers and reading in dataset is not uncluded in this sample but works as the gdalrasterio_f method works in my same source code):
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i> type(c_ptr),pointer :: z(:,:)
+</I>&gt;<i>
+</I>&gt;<i> real, pointer :: y(:,:)
+</I>&gt;<i>
+</I>&gt;<i> integer (c_int) :: dtype
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i> allocate (z(i2,j2)) !i2 = xsize; j2 = ysize of image
+</I>&gt;<i>
+</I>&gt;<i> allocate (y(i2,j2))
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i>   dtype = gdalgetrasterdatatype(band)
+</I>&gt;<i>
+</I>&gt;<i> ierr = gdalrasterio(band, GF_Read, 0, 0, i2, j2, z(i2,j2), i2, j2, dtype, 0, 0)
+</I>&gt;<i>
+</I>
+Hello Dommy, and sorry for the delay, I suggest a different way to use 
+the raw gdalrasterio function, you should try to allocate a Fortran 
+array and pass the address of its first element with the C_LOC function, 
+more or less like this:
+
+====
+REAL(kind=c_float),allocatable :: z(:,:) ! assume float data
+...
+ALLOCATE(z(i2,j2))
+ierr = gdalrasterio(band, GF_Read, 0, 0, i2, j2, C_LOC(z(1,1)), i2, j2, 
+dtype, 0, 0)
+====
+
+[I did not check the other arguments, I assume they are correct].
+This is more or less what is done internally within the functions 
+interfaced to gdalrasterio_f into gdal.F90. Conversely, in your 
+approach, when you allocate z you are actually allocating an array of C 
+pointers not a pointer to an array.
+	Best wishes, Davide
+
+
+
+
+&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i> Call c_f_pointer (z, y)
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i> I receive this message before c_f_pointer (z, y):
+</I>&gt;<i>
+</I>&gt;<i> ERROR 1: The buffer into which the data should be read is null
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i> Regards,
+</I>&gt;<i>
+</I>&gt;<i> Dominik
+</I>&gt;<i>
+</I>&gt;<i>    		 	   		
+</I></PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000016.html">[Fortrangis-users] gdalrasterio
+</A></li>
+	
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#17">[ date ]</a>
+              <a href="thread.html#17">[ thread ]</a>
+              <a href="subject.html#17">[ subject ]</a>
+              <a href="author.html#17">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/fortrangis-users">More information about the Fortrangis-users
+mailing list</a><br>
+</body></html>

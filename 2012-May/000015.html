@@ -1,0 +1,157 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Fortrangis-users] Windows version
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/fortrangis-users/2012-May/index.html" >
+   <LINK REL="made" HREF="mailto:fortrangis-users%40lists.berlios.de?Subject=Re%3A%20%5BFortrangis-users%5D%20Windows%20version&In-Reply-To=%3CCOL124-W20646A5F0658EFB7B947ABCA1B0%40phx.gbl%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000014.html">
+   <LINK REL="Next"  HREF="000016.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Fortrangis-users] Windows version</H1>
+    <B>Dommi</B> 
+    <A HREF="mailto:fortrangis-users%40lists.berlios.de?Subject=Re%3A%20%5BFortrangis-users%5D%20Windows%20version&In-Reply-To=%3CCOL124-W20646A5F0658EFB7B947ABCA1B0%40phx.gbl%3E"
+       TITLE="[Fortrangis-users] Windows version">realownage at msn.com
+       </A><BR>
+    <I>Tue May 15 22:55:04 CEST 2012</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000014.html">[Fortrangis-users] Windows version
+</A></li>
+        <LI>Next message: <A HREF="000016.html">[Fortrangis-users] gdalrasterio
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#15">[ date ]</a>
+              <a href="thread.html#15">[ thread ]</a>
+              <a href="subject.html#15">[ subject ]</a>
+              <a href="author.html#15">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>
+
+ &gt; Date: Tue, 15 May 2012 22:09:43 +0200
+&gt;<i> From: <A HREF="https://lists.berlios.de/mailman/listinfo/fortrangis-users">realownage at msn.com</A>
+</I>&gt;<i> To: <A HREF="https://lists.berlios.de/mailman/listinfo/fortrangis-users">dcesari69 at gmail.com</A>
+</I>&gt;<i> CC: <A HREF="https://lists.berlios.de/mailman/listinfo/fortrangis-users">fortrangis-users at lists.berlios.de</A>
+</I>&gt;<i> Subject: Re: [Fortrangis-users] Windows version
+</I>&gt;<i> 
+</I>&gt;<i> On 15/05/2012 17:17, Davide Cesari wrote:
+</I>&gt;<i> &gt; On 09/05/2012 21:10, Dominik wrote:
+</I>&gt;<i> &gt;&gt; On 09/05/2012 18:12, Davide Cesari wrote:
+</I>&gt;<i> &gt;&gt;&gt; On 09/05/2012 17:40, Dommi wrote:
+</I>&gt;<i> &gt;&gt;&gt;&gt; *Dear Davide Cesari,
+</I>&gt;<i> &gt;&gt;&gt;&gt;
+</I>&gt;<i> &gt;&gt;&gt;&gt; first I want to thank you for this great project. I think it is very
+</I>&gt;<i> &gt;&gt;&gt;&gt; useful!
+</I>&gt;<i> &gt;&gt;&gt;&gt;
+</I>&gt;<i> &gt;&gt;&gt;&gt; My question is if there is also a Windows version of the library
+</I>&gt;<i> &gt;&gt;&gt;&gt; available?
+</I>&gt;<i> &gt;&gt;&gt;&gt; I am not very familiar with UNIX so I cannot estimate how much 
+</I>&gt;<i> &gt;&gt;&gt;&gt; effort is
+</I>&gt;<i> &gt;&gt;&gt;&gt; needed to transfer it to Windows.
+</I>&gt;<i> &gt;&gt;&gt;&gt;
+</I>&gt;<i> &gt;&gt;&gt;&gt;
+</I>&gt;<i> &gt;&gt;&gt;&gt; Kind Regards
+</I>&gt;<i> &gt;&gt;&gt;&gt; Dominik
+</I>&gt;<i> &gt;&gt;&gt;&gt;
+</I>&gt;<i> &gt;&gt;&gt;
+</I>&gt;<i> &gt;&gt;&gt; Hello Dominik,
+</I>&gt;<i> &gt;&gt;&gt; The package is based on autotools, so it does not build on Windows as
+</I>&gt;<i> &gt;&gt;&gt; it is, maybe under Cygwin, but it is not the same thing. But in
+</I>&gt;<i> &gt;&gt;&gt; principle most of FortranGIS is actually a &quot;thin standard Fortran 2003
+</I>&gt;<i> &gt;&gt;&gt; layer&quot; over other C/C++ libraries available under Windows, so, at
+</I>&gt;<i> &gt;&gt;&gt; least as a first try, it may be a matter of compiling by hand some
+</I>&gt;<i> &gt;&gt;&gt; Fortran sources with a F2003 compiler, but it is possible that some
+</I>&gt;<i> &gt;&gt;&gt; modifications are required. If you tell me which compilers you are
+</I>&gt;<i> &gt;&gt;&gt; using I can make a more accurate guess.
+</I>&gt;<i> &gt;&gt;&gt; Davide
+</I>&gt;<i> &gt;&gt;&gt;
+</I>&gt;<i> &gt;&gt;&gt;
+</I>&gt;<i> &gt;&gt; Thank you for the quick reply.
+</I>&gt;<i> &gt;&gt;
+</I>&gt;<i> &gt;&gt; I use the Visual Fortran 2011 Compiler. But on another computer I also
+</I>&gt;<i> &gt;&gt; have the gfortran compiler so I might just try both.
+</I>&gt;<i> &gt;&gt;
+</I>&gt;<i> &gt;&gt; Dominik
+</I>&gt;<i> &gt;&gt;
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt; Well, both those compilers should support F2003 standard, so a 
+</I>&gt;<i> &gt; quick-and-dirty approach could be to compile by hand and link together 
+</I>&gt;<i> &gt; to form a dll the main .F90 and .c sources of the package, namely:
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt; libfortranc/fortranc.F90
+</I>&gt;<i> &gt; libfortrangis/gdal.F90
+</I>&gt;<i> &gt; libfortrangis/shapelib.F90
+</I>&gt;<i> &gt; libfortrangis/shapelibint.c
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt; keeping in mind that files from the directory include/ have to be 
+</I>&gt;<i> &gt; included; the line #include &quot;config.h&quot; in libfortranc/fortranc.F90 
+</I>&gt;<i> &gt; should be commented since config.h is autogenerated by autoconf, but 
+</I>&gt;<i> &gt; it is not strictly necessary at the moment.
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt; After that you should be able to compile the 
+</I>&gt;<i> &gt; libfortrangis/shapelib_test.F90 and libfortrangis/gdal_test.F90 test 
+</I>&gt;<i> &gt; sources using the generated modulefiles and libraries and the 
+</I>&gt;<i> &gt; precompiled gdal and shapelib libraries. To make all this work 
+</I>&gt;<i> &gt; smoothly it is probably necessary to create a projectfile or something 
+</I>&gt;<i> &gt; like that.
+</I>&gt;<i> &gt;     Please report on any success, best regards, Davide
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt;
+</I>&gt;<i> 
+</I>&gt;<i> I have managed to compile FortranGIS on windows by creating a .lib file 
+</I>&gt;<i> + .mod file for each libfortranc and libfortrangis and linking these to 
+</I>&gt;<i> a project including the gdal.F90 source file. At first I received 
+</I>&gt;<i> &quot;unresolved externals&quot; errors but solved this by changing all the 
+</I>&gt;<i> subroutine names. For example I changed GDALAllRegister() to 
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/fortrangis-users">GDALAllRegister at 0</A> -&gt; @0 being the number of arguments passed times 4.
+</I>&gt;<i> It all works fine and will be a great help for my master thesis! Perhaps 
+</I>&gt;<i> at some point I can help out with the project.
+</I>&gt;<i> 
+</I>&gt;<i> Best Regards, Dominik I have managed to compile FortranGIS on windows by creating a .lib file 
+</I>+ .mod file for each libfortranc and libfortrangis and linking these to 
+a project including the gdal.F90 source file. At first I received 
+&quot;unresolved externals&quot; errors but solved this by changing all the 
+subroutine names. For example I changed GDALAllRegister() to 
+<A HREF="https://lists.berlios.de/mailman/listinfo/fortrangis-users">GDALAllRegister at 0</A> -&gt; @0 being the number of arguments passed times 4.
+It all works fine and will be a great help for my master thesis! Perhaps 
+at some point I can help out with the project.
+ 
+Best Regards, Dominik ... of course I linked to a project containing the gdal_test.F90 not the gdal.F90 file.
+
+ 		 	   		  
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: &lt;<A HREF="https://lists.berlios.de/pipermail/fortrangis-users/attachments/20120515/35af4c53/attachment.html">https://lists.berlios.de/pipermail/fortrangis-users/attachments/20120515/35af4c53/attachment.html</A>&gt;
+</PRE>
+
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000014.html">[Fortrangis-users] Windows version
+</A></li>
+	<LI>Next message: <A HREF="000016.html">[Fortrangis-users] gdalrasterio
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#15">[ date ]</a>
+              <a href="thread.html#15">[ thread ]</a>
+              <a href="subject.html#15">[ subject ]</a>
+              <a href="author.html#15">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/fortrangis-users">More information about the Fortrangis-users
+mailing list</a><br>
+</body></html>
